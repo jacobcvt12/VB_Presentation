@@ -1,0 +1,61 @@
+---
+title: "Variational Approximation"
+author: "Jacob Carey"
+date: \today
+output: 
+  beamer_presentation:
+    toc: true
+    theme: "Szeged"
+    slide_level: 2
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(fig.height=3, fig.height=3)
+```
+
+# Terminology
+
+## Bayes Rule
+
+>- $P(y|\theta)$
+>- $P(\theta)$
+>- $P(\theta|y)$
+>- $P(y)$
+>- $P(\theta|y) = \frac{P(\theta)P(y|\theta)}{P(y)}$
+
+## Gibbs Sampling
+
+>- $P(\theta|y) \propto P(\theta)P(y|\theta)$
+>- $\theta = (\theta_1, ..., \theta_n) = (\mu, \sigma^2)$
+>- $\theta_i|y \sim P(\theta_i | \theta_{-i}, y)$
+
+## Other
+
+>- Priors are said to be conjugate to a likelihood when the posterior is of the same form as the prior (e.g. beta is conjugate to binomial)
+
+# MCMC
+
+## Quick Overview
+
+>- Integrates over posterior 
+>- Can compute posterior exactly...
+>- ...if run infinitely long
+
+## Pros
+
+>- Again, exact after inifinitely many draws from the posterior
+>- In practice, 1,000 *independent* draws from the posterior after sufficient burn-in is good enough (but may require lots of thinning)
+>- When using conjugate priors, deriving the full conditionals is typically straightforward
+
+## Cons
+
+>- Assessing convergence can be complicated
+>- Integration via MCMC can be very slow, especially with a complicated model or the large dataset
+
+# Variational Approximation
+
+>- Replaces the integration problem with an optimization one
+>- Instead of approximating the solution to an integral, we approximate the posterior distribution with another
+>- Specifically, we minimize the *Kullback-Leibler divergence* between the posterior $p(\theta|y)$ and our "approximate" distribution $q(\theta)$.
+
+## 
