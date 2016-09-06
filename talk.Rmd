@@ -32,6 +32,8 @@ knitr::opts_chunk$set(fig.height=3, fig.height=3)
 ## Other
 
 >- Priors are said to be conjugate to a likelihood when the posterior is of the same form as the prior (e.g. beta is conjugate to binomial)
+>- The *maximum a posteriori* or MAP is the mode of posterior distribution and roughly corresponds to a point estimate in classical statistics
+>- Similarly, the 95% credible interval (CrI) is somewhat analagous to the classical 95% CI
 
 # MCMC
 
@@ -54,8 +56,20 @@ knitr::opts_chunk$set(fig.height=3, fig.height=3)
 
 # Variational Approximation
 
+## Overview
+
 >- Replaces the integration problem with an optimization one
 >- Instead of approximating the solution to an integral, we approximate the posterior distribution with another
 >- Specifically, we minimize the *Kullback-Leibler divergence* between the posterior $p(\theta|y)$ and our "approximate" distribution $q(\theta)$.
 
-## 
+## Overview
+
+>- $\text{KL}(q(\theta||p(\theta|y)) \equiv \text{KL}(q||p) = -\int q(\theta)\log\frac{p(\theta|y)}{q(\theta)}d\theta$
+>- Note that when we minimize the KL of $q$ and $p$, this is referred to as "Variational Approximation"
+>- Minimizing the KL of $p$ and $q$ is **not** equivalent and is referred to as expectation propagation
+
+## Accuracy
+
+>- VA is a good estimator of MAP
+>- Tends to underestimate variance of the posterior and thus the CrI may be too narrow
+>- Conversely, EP can overestimate the variance and provide CrI which are too conservative
